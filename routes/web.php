@@ -18,7 +18,19 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 
+
+
 Route::get('/', function () {
+    return Inertia::render('Index', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+});
+
+
+
+
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
