@@ -11,7 +11,7 @@ defineProps({
 
 <template>
     <Head title="Welcome" />
-
+    <a href="auth/facebook">Facebook</a>
     <div
         class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0"
     >
@@ -32,6 +32,11 @@ defineProps({
                     class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline"
                     >Register</Link
                 >
+
+            
+
+
+
             </template>
         </div>
 
@@ -205,6 +210,7 @@ defineProps({
                         </svg>
 
                         <a href="https://laravel.bigcartel.com" class="ml-1 underline"> Shop </a>
+                        <a href="auth/facebook" class="ml-1 underline"> FB </a>
 
                         <svg
                             fill="none"
