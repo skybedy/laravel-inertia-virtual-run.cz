@@ -1,25 +1,16 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Link } from '@inertiajs/inertia-vue3';
 
-
-defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
-});
+const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <Head title="Welcome" />
-
     <div>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -31,13 +22,18 @@ defineProps({
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
                                     <ApplicationLogo
-                                        class="block h-12 w-auto fill-current text-red-800"
+                                        class="block h-9 w-auto fill-current text-gray-800"
                                     />
                                 </Link>
+                                <span class="ml-2">Virtual-Run.cz</span>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        </div>
+
+                        <!-- Right Side -->
+                        <div class="hidden sm:flex sm:items-center sm:ml-5 space-x-1"> 
+                            <!-- Settings Dropdown -->
+                            
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Závody
                                 </NavLink>
@@ -45,26 +41,15 @@ defineProps({
                                     Výsledky
                                 </NavLink>
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    
+                                    Kontakt
                                 </NavLink>
-                            </div>
-                        </div>
-
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
-                                <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
-                                            <PrimaryButton>Přihlásit se</PrimaryButton>
-                                        </span>
-                                    </template>
-
-                                    <template #content>
-                                        <PrimaryButton>koko</PrimaryButton>
-                                    </template>
-                                </Dropdown>
-                            </div>
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Kontakt
+                                </NavLink>
+                                <a href="/" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded">
+  Přihlásit se
+</a>
+                            
                         </div>
 
                         <!-- Hamburger -->
@@ -109,15 +94,18 @@ defineProps({
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Dashboardtest
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">
-                                Name
+                                {{  }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">Email</div>
+                            <div class="font-medium text-sm text-gray-500">{{  }}</div>
                         </div>
 
                         <div class="mt-3 space-y-1">
@@ -131,11 +119,12 @@ defineProps({
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
                 </div>
             </header>
+
 
             <!-- Page Content -->
             <main>
@@ -143,5 +132,4 @@ defineProps({
             </main>
         </div>
     </div>
-
 </template>
