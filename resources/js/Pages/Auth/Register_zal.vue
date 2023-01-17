@@ -21,8 +21,10 @@ const submit = () => {
 };
 </script>
 
-        <template>
+<template>
+    <GuestLayout>
         <Head title="Register" />
+
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
@@ -98,4 +100,5 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-         </template>
+    </GuestLayout>
+</template>

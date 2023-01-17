@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import ButtonLink from '@/Components/ButtonLink.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -43,10 +44,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Kontakt
                                 </NavLink>
-                                <a href="/login" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded">
-  Přihlásit se
-</a>
-                            
+                                <ButtonLink :href="route('login')" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded">Přihlásit se</ButtonLink>
                         </div>
 
                         <!-- Hamburger -->

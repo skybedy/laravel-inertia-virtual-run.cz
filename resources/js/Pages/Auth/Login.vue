@@ -5,6 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import BigDangerButton from '@/Components/BigDangerButton.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 defineProps({
@@ -33,58 +34,45 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+        <template  #div1>
+           <h3 class="bg-gray-100 -mt-4 -mx-6 p-3 text-base text-center font-bold border-b border-gray-200 border-solid text-gray-500">MÁTE-LI UŽ ÚČET, PŘIHLASTE SE</h3>
+            <p class="mt-5 italic">Přes svou sociální síť..</p>
+            <div class="mt-3"><a href="auth/facebook"><img class="img-fluid" src="img/facebook-login-icon.png" /></a></div>
+            <div class="mt-1"><a href="auth/google"><img class="img-fluid" src="img/google-login-icon.png" /></a></div>
+            <hr class="mt-5">
+            <p class="mt-5 italic">Nebo klasicky..</p>
+            
+            <form @submit.prevent="submit" class="mt-4">
+                <div>
+                    <InputLabel for="email" value="Email" />
+                    <TextInput
+                        id="email"
+                        type="email"
+                        class="mt-1 block w-full"
+                        v-model="form.email"
+                        required
+                        autofocus
+                        autocomplete="username"
+                    />
+                   
+                    <InputLabel for="password" value="Heslo" class="mt-2" />
+                    <TextInput
+                        id="password"
+                        type="password"
+                        class="mt-1 block w-full"
+                        v-model="form.password"
+                        required
+                        autofocus
+                        autocomplete="password"
+                    />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
+                    <BigDangerButton class="mt-3">Přihlásit</BigDangerButton>
+                </div>
+            </form>
+        </template>
+        <template #div2>
+            <h3 class="bg-gray-100 -mt-4 -mx-6 p-3 text-base text-center font-bold border-b border-gray-200 border-solid text-gray-500">NEMÁTE-LI ÚČET, ZAREGISTRUJTE SE</h3>
+            <a href="register" class="mt-5 md:mt-10 md:py-20 w-full inline-block items-center px-1 py-3 mb-1 bg-red-600 border border-transparent rounded-md font-semibold text-xl text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 text-center">Registrovat</a>
+        </template>
     </GuestLayout>
 </template>

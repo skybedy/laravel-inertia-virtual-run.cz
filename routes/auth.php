@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\Auth\ProviderController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -59,8 +59,8 @@ Route::middleware('auth')->group(function () {
                 ->name('logout');
 });
 
-Route::controller(FacebookController::class)->group(function(){
-    Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
-    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+Route::controller(ProviderController::class)->group(function(){
+    Route::get('auth/{provider}', 'redirectToProvider');
+    Route::get('auth/{provider}/callback', 'handleProviderCallback');
 });
 

@@ -1,24 +1,25 @@
 <?php
   
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
   
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
   
-class FacebookController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function redirectToFacebook()
+    public function redirectToProvider(String $provider)
     {
        
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
            
     /**
@@ -26,14 +27,14 @@ class FacebookController extends Controller
      *
      * @return void
      */
-    public function handleFacebookCallback()
+    public function handleProviderCallback(String $provider)
     {
         try {
         
 
-            $user = Socialite::driver('facebook')->user();
+            $user = Socialite::driver($provider)->user();
          
-            $finduser = User::where('facebook_id', $user->id)->first();
+            $finduser = User::where($provider.'_id', $user->id)->first();
          
             if($finduser){
          

@@ -1,4 +1,5 @@
 <script setup>
+import Checkbox from '@/Components/Checkbox.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -6,41 +7,34 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
+defineProps({
+    canResetPassword: Boolean,
+    status: String,
+});
+
 const form = useForm({
-    name: '',
     email: '',
     password: '',
-    password_confirmation: '',
-    terms: false,
+    remember: false,
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+    form.post(route('login'), {
+        onFinish: () => form.reset('password'),
     });
 };
 </script>
 
-        <template>
-        <Head title="Register" />
+<template>
+    <GuestLayout>
+        <Head title="Log in" />
+
+        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+            {{ status }}
+        </div>
+
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-
-            <div class="mt-4">
                 <InputLabel for="email" value="Email" />
 
                 <TextInput
@@ -49,6 +43,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
+                    autofocus
                     autocomplete="username"
                 />
 
@@ -64,38 +59,32 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.password"
                     required
-                    autocomplete="new-password"
+                    autocomplete="current-password"
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+            <div class="block mt-4">
+                <label class="flex items-center">
+                    <Checkbox name="remember" v-model:checked="form.remember" />
+                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <Link
-                    :href="route('login')"
+                    v-if="canResetPassword"
+                    :href="route('password.request')"
                     class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                    Already registered?
+                    Forgot your password?
                 </Link>
 
                 <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    Log in
                 </PrimaryButton>
             </div>
         </form>
-         </template>
+    </GuestLayout>
+</template>
