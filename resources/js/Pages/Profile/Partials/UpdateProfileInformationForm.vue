@@ -3,10 +3,9 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import MyTextInput from '@/Components/MyTextInput.vue';
-import BirdthYearOption from '@/Components/BirdthYearOption.vue';
 
 import { Link, useForm, usePage } from '@inertiajs/inertia-vue3';
+import { ref, onMounted } from 'vue';
 
 const props = defineProps({
     mustVerifyEmail: Boolean,
@@ -20,6 +19,30 @@ const form = useForm({
     firstname: user.firstname,
     email: user.email,
 });
+
+
+const yearsList = ref([])
+const selectedYear = ref(null)
+
+const getYearsList = () => {
+    const startYear = 1924;
+    const endYear = new Date().getFullYear();
+    for (let i = startYear; i <= endYear; i++) {
+        yearsList.value = [...yearsList.value, i]
+    }
+}
+
+onMounted(() => {
+  getYearsList()
+})
+
+
+
+
+
+
+
+
 </script>
 
 <template>
@@ -65,7 +88,11 @@ const form = useForm({
                     <InputLabel for="birth_year" value="Ročník" />
                     <select id="birth_year" name="birth_year" v-model="form.birth_year" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                         <option value="" selected disabled></option>
-                        <BirdthYearOption></BirdthYearOption>
+                        <option v-for="(year, y) in yearsList" :key="y" :value="year"
+                         
+                        >
+                            {{year}}
+                        </option>    
                     </select>
                     <InputError class="mt-2" :message="form.errors.birth_year" />
             </div>
