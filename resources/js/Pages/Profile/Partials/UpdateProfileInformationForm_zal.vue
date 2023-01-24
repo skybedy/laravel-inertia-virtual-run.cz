@@ -2,10 +2,7 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import MyTextInput from '@/Components/MyTextInput.vue';
-import BirdthYearOption from '@/Components/BirdthYearOption.vue';
-
 import { Link, useForm, usePage } from '@inertiajs/inertia-vue3';
 
 const props = defineProps({
@@ -16,8 +13,7 @@ const props = defineProps({
 const user = usePage().props.value.auth.user;
 
 const form = useForm({
-    lastname: user.lastname,
-    firstname: user.firstname,
+    name: user.name,
     email: user.email,
 });
 </script>
@@ -25,65 +21,49 @@ const form = useForm({
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Informace o profilu</h2>
+            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Upravte své osobní informace.
+                Update your account's profile information and email address.
             </p>
         </header>
 
         <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="firstname" value="Jméno" />
-                <TextInput
-                    id="text"
+                <InputLabel for="name" value="Name" />
+
+                <MyTextInput
+                    id="name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.firstname"
+                    v-model="form.name"
                     required
                     autofocus
-                    autocomplete="firstname"
+                    autocomplete="name"
                 />
-                <InputError class="mt-2" :message="form.errors.firstname" />
+
+                <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div>
-                <InputLabel for="lastname" value="Příjmení" />
-                <TextInput
-                    id="text"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.lastname"
-                    required
-                    autofocus
-                    autocomplete="lastname"
-                />
-            </div>
-
-
-            <div class="mt-4">
-                    <InputLabel for="birth_year" value="Ročník" />
-                    <select id="birth_year" name="birth_year" v-model="form.birth_year" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
-                        <option value="" selected disabled></option>
-                        <BirdthYearOption></BirdthYearOption>
-                    </select>
-                    <InputError class="mt-2" :message="form.errors.birth_year" />
-            </div>
+                <input v-model="form.email">
 
 
 
             <div>
                 <InputLabel for="email" value="Email" />
-                <div class="mt-1  bg-slate-50 border-gray-300 border rounded-md shadow-sm px-3 py-2">
-                    {{form.email}}
-                </div>
+
+                <MyTextInput
+                    id="email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    v-model="form.email"
+                    required
+                    autocomplete="email"
+                />
+
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-
-
-
-
-            
             <div v-if="props.mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800">
                     Your email address is unverified.

@@ -72,7 +72,7 @@ const submit = () => {
         </template>
         <template #div2>
             <h3 class="bg-gray-100 -mt-4 -mx-6 p-3 text-base text-center font-bold border-b border-gray-200 border-solid text-gray-500">NEMÁTE-LI ÚČET, ZAREGISTRUJTE SE</h3>
-            <a href="register" class="mt-5 md:mt-10 md:py-20 w-full inline-block items-center px-1 py-3 mb-1 bg-red-600 border border-transparent rounded-md font-semibold text-xl text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 text-center">Registrovat</a>
+            <Link :href="route('register')" class="mt-5 md:mt-10 md:py-20 w-full inline-block items-center px-1 py-3 mb-1 bg-red-600 border border-transparent rounded-md font-semibold text-xl text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150 text-center">Registrovat</Link>
         </template>
     </GuestLayout>
 </template>

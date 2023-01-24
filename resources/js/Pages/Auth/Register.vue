@@ -4,11 +4,15 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import BirdthYearOption from '@/Components/BirdthYearOption.vue';
 
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
 const form = useForm({
-    name: '',
+    firstname: '',
+    lastname: '',
+    gender: '',
+    birth_year: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -24,7 +28,6 @@ const submit = () => {
 
     <template>
         <Head title="Register" />
-        <h1>akoko</h1>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 b-gray-100">
         <div>
             <Link href="/">
@@ -42,32 +45,55 @@ const submit = () => {
             
             <form @submit.prevent="submit">
                 <div class="mt-4">
-                    <InputLabel for="name" value="Jméno" />
+                    <InputLabel for="firstname" value="Jméno" />
                     <TextInput
-                        id="name"
+                        id="firstname"
+                        type="text"
+                        required
+                        class="mt-1 block w-full"
+                        v-model="form.firstname"
+                        autofocus
+                        autocomplete="firstname"
+                    />
+                    <InputError class="mt-2" :message="form.errors.firstname" />
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel for="lastname" value="Příjmení" />
+                    <TextInput
+                        id="lastname"
                         type="text"
                         class="mt-1 block w-full"
-                        v-model="form.name"
+                        v-model="form.lastname"
                         required
                         autofocus
-                        autocomplete="name"
+                        autocomplete="lastname"
                     />
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
 
+
+
                 <div class="mt-4">
-                    <InputLabel for="name" value="Příjmení" />
-                    <TextInput
-                        id="name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.name"
-                        required
-                        autofocus
-                        autocomplete="name"
-                    />
-                    <InputError class="mt-2" :message="form.errors.name" />
+                    <InputLabel for="gender" value="Pohlaví" />
+                    <select id="gender" name="gender"  v-model="form.gender" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
+                        <option value="" selected disabled></option>
+                        <option value="F">Žena</option>
+                        <option value="M">Muž</option>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.gender" />
                 </div>
+
+                <div class="mt-4">
+                    <InputLabel for="birth_year" value="Ročník" />
+                    <select id="birth_year" name="birth_year" v-model="form.birth_year" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
+                        <option value="" selected disabled></option>
+                        <BirdthYearOption></BirdthYearOption>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.birth_year" />
+                </div>
+
+
 
                 <div class="mt-4">
                     <InputLabel for="email" value="Email" />
@@ -83,7 +109,7 @@ const submit = () => {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="password" value="Password" />
+                    <InputLabel for="password" value="Heslo" />
                     <TextInput
                         id="password"
                         type="password"
@@ -96,7 +122,7 @@ const submit = () => {
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel for="password_confirmation" value="Confirm Password" />
+                    <InputLabel for="password_confirmation" value="Potvrzení hesla" />
                     <TextInput
                         id="password_confirmation"
                         type="password"
@@ -107,6 +133,8 @@ const submit = () => {
                     />
                     <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 </div>
+
+
 
                 <div class="flex items-center justify-end mt-4">
                     <Link
