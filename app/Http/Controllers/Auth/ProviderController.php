@@ -47,7 +47,7 @@ class ProviderController extends Controller
             }else{
                 //dd($user);
 
-                return Inertia::render('Profile/Edit', [
+                return Inertia::render('Auth/RegisterSocialite', [
                     'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
                     'status' => session('status'),
                 ]);
