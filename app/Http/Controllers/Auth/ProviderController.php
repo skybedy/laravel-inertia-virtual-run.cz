@@ -8,7 +8,9 @@ use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-  
+use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Contracts\Auth\MustVerifyEmail;  
 class ProviderController extends Controller
 {
     /**
@@ -27,7 +29,7 @@ class ProviderController extends Controller
      *
      * @return void
      */
-    public function handleProviderCallback(String $provider)
+    public function handleProviderCallback(String $provider,Request $request)
     {
         try {
         
@@ -43,6 +45,19 @@ class ProviderController extends Controller
                 return redirect()->intended('dashboard');
          
             }else{
+                //dd($user);
+
+                return Inertia::render('Profile/Edit', [
+                    'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+                    'status' => session('status'),
+                ]);
+                
+                
+                
+                
+                
+                
+                /*
                 $newUser = User::updateOrCreate(['email' => $user->email],[
                         'name' => $user->name,
                         'facebook_id'=> $user->id,
@@ -51,7 +66,7 @@ class ProviderController extends Controller
         
                 Auth::login($newUser);
         
-                return redirect()->intended('dashboard');
+                return redirect()->intended('dashboard');*/
             }
        
         } catch (Exception $e) {
