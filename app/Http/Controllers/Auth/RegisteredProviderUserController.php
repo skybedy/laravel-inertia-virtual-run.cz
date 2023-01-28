@@ -98,6 +98,7 @@ class RegisteredProviderUserController extends Controller
     public function redirectToProvider(String $provider)
     {
        
+        //dd($provider);
         return Socialite::driver($provider)->redirect();
     }
            
@@ -122,7 +123,7 @@ class RegisteredProviderUserController extends Controller
                 return redirect()->intended('dashboard');
          
             }else{
-               // dd($user);
+     //          dd($user);
 
                 
                 return redirect()->route('register-socialite',[

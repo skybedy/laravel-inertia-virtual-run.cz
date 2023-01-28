@@ -72,7 +72,7 @@ const submit = () => {
         </div>
         <div class="w-ful sm:max-w-md my-2 md:mr-5  px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg border border-solid border-gray-200">
             <div class="mt-3" v-if="provider === 'facebook'" ><img class="img-fluid" src="img/facebook-login-icon.png" /></div>
-            <div class="mt-3" v-else-if="google"><img class="img-fluid" src="img/google-login-icon.png" /></div>
+            <div class="mt-3" v-else-if="provider === 'google'"><img class="img-fluid" src="img/google-login-icon.png" /></div>
             <hr class="mt-5">
             <form @submit.prevent="submit">
                     <TextInput id="id" type="hidden" v-model="form.id" />
