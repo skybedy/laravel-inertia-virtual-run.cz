@@ -13,17 +13,17 @@ const props = defineProps({
 });
 
 const user = usePage().props.value.auth.user;
-console.log(user);
 
 const form = useForm({
     lastname: user.lastname,
     firstname: user.firstname,
+    birth_year: user. birth_year,
+    gender: user.gender,
     email: user.email,
 });
 
 
 const yearsList = ref([])
-const selectedYear = ref(null)
 
 const getYearsList = () => {
     const startYear = 1924;
@@ -33,16 +33,14 @@ const getYearsList = () => {
     }
 }
 
+const genderList = {
+    'M' : 'Muž',
+    'F' : 'Žena'
+}
+
 onMounted(() => {
   getYearsList()
 })
-
-
-
-
-
-
-
 
 </script>
 
@@ -84,33 +82,31 @@ onMounted(() => {
                 />
             </div>
 
+            <div class="mt-4">
+                    <InputLabel for="gender" value="Pohlaví" />
+                    <select id="gender" name="gender" v-model="form.gender" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
+                        <option value="" selected disabled></option>
+                        <option v-for="(gender, genderKey) in genderList" :key="genderKey" :value="genderKey" :selected="form.gender">{{gender}}</option>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.gender" />
+            </div>
+
+
 
             <div class="mt-4">
                     <InputLabel for="birth_year" value="Ročník" />
                     <select id="birth_year" name="birth_year" v-model="form.birth_year" required class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                         <option value="" selected disabled></option>
-                        <option v-for="(year, y) in yearsList" :key="y" :value="year"
-                         
-                        >
-                            {{year}}
-                        </option>    
+                        <option v-for="(year, y) in yearsList" :key="y" :value="year" :selected="form.birth_year">{{year}}</option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.birth_year" />
             </div>
-
-
-
             <div>
                 <InputLabel for="email" value="Email" />
                 <div class="mt-1  bg-slate-50 border-gray-300 border rounded-md shadow-sm px-3 py-2">
                     {{form.email}}
                 </div>
             </div>
-
-
-
-
-
             
             <div v-if="props.mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800">
