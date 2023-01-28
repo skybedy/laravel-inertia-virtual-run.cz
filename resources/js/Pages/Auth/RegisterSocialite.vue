@@ -46,6 +46,8 @@ const form = useForm({
     firstname: firstname,
     lastname: lastname,
     email: props.email,
+    id: props.id,
+    provider: props.provider,
     gender: '',
     birth_year: '',
     terms: false,
@@ -73,7 +75,10 @@ const submit = () => {
             <div class="mt-3" v-else-if="google"><img class="img-fluid" src="img/google-login-icon.png" /></div>
             <hr class="mt-5">
             <form @submit.prevent="submit">
-                <div class="mt-4">
+                    <TextInput id="id" type="hidden" v-model="form.id" />
+                    <TextInput id="provider" type="hidden" v-model="form.provider" />
+               
+                    <div class="mt-4">
                     <InputLabel for="firstname" value="Jméno" />
                     <TextInput
                         id="firstname"

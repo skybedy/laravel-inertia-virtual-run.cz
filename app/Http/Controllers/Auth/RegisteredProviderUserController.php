@@ -44,6 +44,20 @@ class RegisteredProviderUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
+        $provider = false;
+       // dd($request);
+        switch($request->provider)
+        {
+            case 'facebook':
+                $provider = 'facebook_id';
+            break;
+            case 'google':
+                $provider = 'google_id';
+            break;
+        }
+
+      //  dd($provider);
         $request->validate([
             'lastname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
@@ -52,7 +66,6 @@ class RegisteredProviderUserController extends Controller
             'email' => 'required|string|email|max:255|unique:'.User::class,
         ]);
 
-        
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -60,6 +73,7 @@ class RegisteredProviderUserController extends Controller
             'birth_year' => $request->birth_year,
             'email' => $request->email,
             'password' => Hash::make('password'),
+            $provider => $request->id
         ]);
 
        // $user = User::create($request->all());
