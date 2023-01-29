@@ -6,6 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\EventController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,13 @@ Route::get('/welcome', function () {
     ]);
 });
 
+Route::get('/zavody', [EventController::class, 'index'])->name('event');
+
+
+
+Route::controller(EventController::class)->group(function(){
+    Route::get('zavodyx', 'index')->name('eventx');
+});
 
 
 

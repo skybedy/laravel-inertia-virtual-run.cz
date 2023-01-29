@@ -35,7 +35,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="hidden sm:flex sm:items-center sm:ml-5 space-x-5"> 
                             <!-- Settings Dropdown -->
                             
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('event')">
                                     Závody
                                 </NavLink>
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
@@ -104,7 +104,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <a href="/" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded">
+                            <a :href="route('login')" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded">
   Přihlásit se
 </a>
                         </div>
