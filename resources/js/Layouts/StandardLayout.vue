@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import ButtonLink from '@/Components/ButtonLink.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -13,13 +14,9 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-            
-            
-            
-            <nav class="bg-white border-b border-gray-100">
+
+            <nav class="bg-white border-b border-gray-300">
                 <!-- Primary Navigation Menu -->
-
-
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
@@ -30,22 +27,36 @@ const showingNavigationDropdown = ref(false);
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
                                 </Link>
+                                <span class="ml-2">Virtual-Run.cz</span>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboardtest
-                                </NavLink>
-                            </div>
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        <!-- Right Side -->
+                        <div class="hidden sm:flex sm:items-center sm:ml-5 space-x-5"> 
                             <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
+                            
+                                <NavLink :href="route('event')">
+                                    Závody
+                                </NavLink>
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Výsledky
+                                </NavLink>
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Kontakt
+                                </NavLink>
+                        
+                        
+                        
+                        
+                            </div>
+
+                            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                            <!-- Settings Dropdown -->
+
+                            <ButtonLink :href="route('login')" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded" v-if="$page.props.auth.user === null">Přihlásit se</ButtonLink>
+
+                            <div class="ml-3 relative"  v-else>
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -81,6 +92,17 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
+
+
+
+
+
+
+
+
+
+
+
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
                             <button
@@ -114,9 +136,6 @@ const showingNavigationDropdown = ref(false);
                     </div>
                 </div>
 
-
-
-
                 <!-- Responsive Navigation Menu -->
                 <div
                     :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
@@ -135,25 +154,19 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
+                                {{  }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{  }}</div>
                         </div>
 
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
+                        <div class="mt-3 space-y-1" v-if="$page.props.auth.user === ''">
+                            <a :href="route('login')" class="border-solid border border-red-600  hover:bg-red-700 hover:text-white text-red-700 py-2 px-4 rounded"> Přihlásit s</a>
                         </div>
                     </div>
                 </div>
             </nav>
 
-          
-          
-          
-          
+
             <!-- Page Heading -->
             <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
