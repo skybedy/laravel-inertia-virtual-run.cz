@@ -57,7 +57,7 @@ class RegisteredProviderUserController extends Controller
             break;
         }
 
-      //  dd($provider);
+       
         $request->validate([
             'lastname' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
@@ -66,6 +66,7 @@ class RegisteredProviderUserController extends Controller
             'email' => 'required|string|email|max:255|unique:'.User::class,
         ]);
 
+        //dd($provider);
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
