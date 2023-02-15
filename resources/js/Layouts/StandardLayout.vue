@@ -45,6 +45,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Kontakt
                                 </NavLink>
+                                <DropdownLink>kokok</DropdownLink>
                         
                         
                         
@@ -58,6 +59,7 @@ const showingNavigationDropdown = ref(false);
 
                             <div class="ml-3 relative"  v-else>
                                 <Dropdown align="right" width="48">
+                                    
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
